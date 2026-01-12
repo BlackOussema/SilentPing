@@ -1,98 +1,95 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.8+-blue.svg" alt="Python">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/Platform-Cross--Platform-lightgrey.svg" alt="Platform">
-</p>
+# 🔇 SilentPing: Professional Network Connectivity Checker
 
-<h1 align="center">🔇 SilentPing</h1>
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Platform](https://img.shields.io/badge/Platform-Cross--Platform-lightgrey.svg)
 
-<p align="center">
-  <strong>Professional Network Connectivity Checker</strong>
-</p>
+## Overview
 
-<p align="center">
-  A lightweight Python tool to test internet reachability using ICMP ping<br>
-  with batch checking, latency monitoring, and detailed reporting.
-</p>
+SilentPing is a lightweight and efficient Python tool designed to test network reachability and monitor latency using ICMP (Internet Control Message Protocol) ping. It supports checking single or multiple hosts, offers concurrent batch processing, and provides detailed statistics including packet loss and average latency. This cross-platform utility is ideal for network administrators, developers, and anyone needing a reliable way to assess network connectivity.
 
----
+## Features
 
-## ✨ Features
+*   **Single & Batch Pinging**: Test connectivity to a single host or multiple hosts simultaneously.
+*   **Concurrent Scanning**: Utilizes multithreading for fast and efficient batch operations, significantly reducing the time required to check numerous hosts.
+*   **Detailed Statistics**: Provides comprehensive ping statistics, including packet loss percentage, minimum, average, and maximum latency.
+*   **Cross-Platform Compatibility**: Works seamlessly on Windows, Linux, and macOS, leveraging the native `ping` command.
+*   **File Input**: Load a list of target hosts from a text file (one host per line) for automated checks.
+*   **CSV Export**: Save detailed results to a CSV file for further analysis, reporting, or integration with other tools.
+*   **Colored Output**: Easy-to-read console output with color-coded status indicators for quick identification of reachable and unreachable hosts.
 
-- **Single & Batch Pinging** - Check one or multiple hosts
-- **Concurrent Scanning** - Multithreaded for fast batch operations
-- **Detailed Statistics** - Packet loss, min/avg/max latency
-- **Cross-Platform** - Works on Windows, Linux, and macOS
-- **File Input** - Load hosts from a file
-- **CSV Export** - Save results for analysis
-- **Colored Output** - Easy-to-read status indicators
-
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/BlackOussema/SilentPing.git
-cd SilentPing
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/BlackOussema/SilentPing.git
+    cd SilentPing
+    ```
 
-# No dependencies required - uses standard library only!
-```
+2.  **No external dependencies required!** SilentPing uses only Python's standard library and the system's native `ping` command.
 
 ### Basic Usage
 
-```bash
-# Ping a single host
-python silentping.py google.com
+*   **Ping a single host**:
+    ```bash
+    python silentping.py google.com
+    ```
 
-# Ping multiple hosts
-python silentping.py google.com 8.8.8.8 cloudflare.com
+*   **Ping multiple hosts**:
+    ```bash
+    python silentping.py google.com 8.8.8.8 cloudflare.com
+    ```
 
-# Ping hosts from file
-python silentping.py -f hosts.txt
+*   **Ping hosts from a file**:
+    ```bash
+    python silentping.py -f hosts.txt
+    ```
 
-# Verbose output with more details
-python silentping.py google.com -v
-```
+*   **Verbose output with more details**:
+    ```bash
+    python silentping.py google.com -v
+    ```
 
----
-
-## 📖 Usage
+## Usage
 
 ```
 usage: silentping.py [-h] [-f FILE] [-c COUNT] [-t TIMEOUT] [-T THREADS]
                      [-o OUTPUT] [-v] [-q] [--no-color] [--version]
                      [hosts ...]
 
-Options:
-  hosts                 Host(s) to ping
-  -f, --file FILE       File containing hosts (one per line)
-  -c, --count N         Number of ping packets (default: 4)
-  -t, --timeout SEC     Timeout in seconds (default: 5)
-  -T, --threads N       Threads for batch pinging (default: 10)
-  -o, --output FILE     Save results to CSV file
-  -v, --verbose         Show detailed output
-  -q, --quiet           No banner
-  --no-color            Disable colored output
-  --version             Show version
+positional arguments:
+  hosts                 One or more hostnames or IP addresses to ping.
+
+options:
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  Path to a file containing hosts (one per line).
+  -c COUNT, --count N   Number of ICMP packets to send per host (default: 4).
+  -t TIMEOUT, --timeout SEC
+                        Timeout in seconds for each ping attempt (default: 5).
+  -T THREADS, --threads N
+                        Number of concurrent threads for batch pinging (default: 10).
+  -o OUTPUT, --output FILE
+                        Path to a CSV file to save results.
+  -v, --verbose         Show detailed output for each host.
+  -q, --quiet           Suppress the initial banner message.
+  --no-color            Disable colored console output.
+  --version             Show the tool's version and exit.
 ```
 
----
+## Examples
 
-## 💡 Examples
-
-### Single Host
+### Single Host Ping
 ```bash
-python silentping.py google.com
+python silentping.py example.com
 ```
-Output:
+**Output Example**:
 ```
-✓ REACHABLE google.com (avg: 15.2ms)
+✓ REACHABLE example.com (avg: 25.3ms)
 ```
 
-### Multiple Hosts
+### Multiple Hosts Ping
 ```bash
 python silentping.py google.com 8.8.8.8 1.1.1.1 cloudflare.com
 ```
@@ -101,32 +98,38 @@ python silentping.py google.com 8.8.8.8 1.1.1.1 cloudflare.com
 ```bash
 python silentping.py google.com -v -c 10
 ```
-Output:
+**Output Example**:
 ```
 ✓ REACHABLE google.com (avg: 15.2ms)
   └─ Packets: 10/10 | Loss: 0.0% | Latency: 12.1/15.2/18.5 ms
 ```
 
-### From File
-```bash
-# hosts.txt:
-# google.com
-# 8.8.8.8
-# cloudflare.com
+### Pinging from a File
 
+`hosts.txt` content:
+```
+# My important servers
+server1.local
+192.168.1.1
+google.com
+```
+
+Run command:
+```bash
 python silentping.py -f hosts.txt
 ```
 
-### Export Results
+### Exporting Results to CSV
 ```bash
 python silentping.py -f hosts.txt -o results.csv
 ```
 
----
-
-## 📊 Output Formats
+## Output Formats
 
 ### Console Output
+
+SilentPing provides a clear and concise console output, with a summary at the end:
+
 ```
 ✓ REACHABLE google.com (avg: 15.2ms)
 ✓ REACHABLE 8.8.8.8 (avg: 10.5ms)
@@ -142,6 +145,9 @@ Summary:
 ```
 
 ### CSV Output
+
+When using the `-o` or `--output` option, results are saved in a CSV format, suitable for spreadsheet applications:
+
 ```csv
 Host,Reachable,Packets Sent,Packets Received,Loss %,Min Latency,Avg Latency,Max Latency
 google.com,True,4,4,0.0,12.1,15.2,18.5
@@ -149,13 +155,11 @@ google.com,True,4,4,0.0,12.1,15.2,18.5
 badhost.invalid,False,4,0,100.0,,,
 ```
 
----
-
-## 🔧 Configuration
+## Configuration
 
 ### Hosts File Format
 
-Create a text file with one host per line:
+Hosts files should contain one hostname or IP address per line. Lines starting with `#` are treated as comments and ignored.
 
 ```
 # Network infrastructure
@@ -173,81 +177,65 @@ github.com
 server.local
 ```
 
-Lines starting with `#` are treated as comments.
+## Requirements
 
----
+*   **Python 3.8+**: The tool is written in Python and requires version 3.8 or newer.
+*   **`ping` command**: Relies on the native `ping` command available on all major operating systems (Linux, macOS, Windows).
 
-## 📋 Requirements
+## Platform Support
 
-**No external dependencies!** Uses Python standard library only.
+| Platform    | Status    | Notes                                       |
+|-------------|-----------|---------------------------------------------|
+| Linux       | ✅ Full   | Uses `ping -c` for packet count.            |
+| macOS       | ✅ Full   | Uses `ping -c` for packet count.            |
+| Windows     | ✅ Full   | Uses `ping -n` for packet count.            |
 
-- Python 3.8+
-- `ping` command (available on all major operating systems)
-
----
-
-## 🖥️ Platform Support
-
-| Platform | Status | Notes |
-|----------|--------|-------|
-| Linux | ✅ Full | Uses `ping -c` |
-| macOS | ✅ Full | Uses `ping -c` |
-| Windows | ✅ Full | Uses `ping -n` |
-
----
-
-## 🔒 Use Cases
+## Use Cases
 
 ### Network Monitoring
 ```bash
-# Check critical infrastructure every minute
+# Check critical infrastructure every minute (using watch command)
 watch -n 60 python silentping.py -f critical-hosts.txt -q
 ```
 
 ### Connectivity Testing
 ```bash
-# Test internet connectivity
+# Test general internet connectivity
 python silentping.py google.com cloudflare.com -c 10
 ```
 
 ### Server Health Checks
 ```bash
-# Check server availability
+# Monitor availability of internal servers
 python silentping.py server1.local server2.local db.local -o health.csv
 ```
 
-### Troubleshooting
+### Troubleshooting Network Issues
 ```bash
-# Detailed latency analysis
+# Detailed latency analysis for a problematic host
 python silentping.py problematic-host.com -c 20 -v
 ```
 
----
+## Contributing
 
-## 🤝 Contributing
+Contributions are welcome! If you have ideas for new features, improvements, or bug fixes, please consider:
 
-Contributions are welcome! Ideas:
+*   Adding TCP ping support.
+*   Implementing a continuous monitoring mode.
+*   Adding a JSON output format for programmatic use.
+*   Creating a web dashboard for real-time visualization.
+*   Integrating email or webhook alerts for connectivity issues.
 
-- Add TCP ping support
-- Implement continuous monitoring mode
-- Add JSON output format
-- Create web dashboard
-- Add email/webhook alerts
+## License
 
----
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for full details.
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-## 👤 Author
+## Author
 
 **Ghariani Oussema**
-- GitHub: [@BlackOussema](https://github.com/BlackOussema)
-- Role: Cyber Security Researcher & Full-Stack Developer
-- Location: Tunisia 🇹🇳
+*   GitHub: [@BlackOussema](https://github.com/BlackOussema)
+*   Role: Cybersecurity Researcher & Full-Stack Developer
+*   Location: Tunisia 🇹🇳
 
 ---
 
